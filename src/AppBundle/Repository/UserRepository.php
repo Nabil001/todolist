@@ -10,7 +10,7 @@ class UserRepository extends EntityRepository
     public function findAllAuthors()
     {
         $authors = $this->findAll();
-        
+
         return array_filter($authors, function ($author) {
             return $author->getUsername() != AnonymousUserFactory::ANONYMOUS_USERNAME;
         });
