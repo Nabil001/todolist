@@ -33,6 +33,7 @@ class AnonymousUserFactory
 
         if (null === $anonymous) {
             $anonymous = new User();
+            $anonymous->setRole('ROLE_USER');
             $anonymous->setUsername(self::ANONYMOUS_USERNAME);
             $anonymous->setEmail(self::ANONYMOUS_EMAIL);
             $anonymous->setPassword(
