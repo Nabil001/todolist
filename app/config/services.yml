@@ -7,3 +7,6 @@ services:
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+    app.anonymous_user_factory:
+        class: AppBundle\Service\AnonymousUserFactory
+        arguments: ["@doctrine.orm.entity_manager", "@security.password_encoder"]

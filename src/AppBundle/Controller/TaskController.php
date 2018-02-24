@@ -31,6 +31,12 @@ class TaskController extends Controller
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
 
+            if ($form->get('isAnonymous')->getData()) {
+                $task->setAuthor($this->get('app.anonymous_user_factory')->getAnonymous());
+            } else {
+                $task->setAuthor($this->getUser());
+            }
+
             $em->persist($task);
             $em->flush();
 
