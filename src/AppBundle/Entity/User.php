@@ -9,7 +9,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Table("user")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
  * @UniqueEntity("email")
  */
 class User implements UserInterface
@@ -38,6 +38,16 @@ class User implements UserInterface
      * @Assert\Email(message="Le format de l'adresse n'est pas correcte.")
      */
     private $email;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", length=50)
+     *
+     * @Assert\NotNull()
+     * @Assert\Choice(choices={"ROLE_USER", "ROLE_ADMIN"}, message="Le rôle renseigné est invalide.")
+     */
+    private $role;
 
     public function getId()
     {
@@ -79,9 +89,19 @@ class User implements UserInterface
         $this->email = $email;
     }
 
+    public function getRole()
+    {
+        return $this->role;
+    }
+
+    public function setRole($role)
+    {
+        $this->role = $role;
+    }
+
     public function getRoles()
     {
-        return array('ROLE_USER');
+        return array($this->role);
     }
 
     public function eraseCredentials()
