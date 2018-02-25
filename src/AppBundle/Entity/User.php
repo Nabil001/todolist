@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Service\AnonymousUserFactory;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -106,5 +107,10 @@ class User implements UserInterface
 
     public function eraseCredentials()
     {
+    }
+
+    public function is($user)
+    {
+        return is_a($user, User::class) && ($this->username == $user->getUsername() || $this->getUsername() == AnonymousUserFactory::ANONYMOUS_USERNAME && in_array('ROLE_ADMIN', $user->getRoles()));
     }
 }
