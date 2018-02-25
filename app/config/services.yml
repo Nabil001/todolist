@@ -10,3 +10,6 @@ services:
     app.anonymous_user_factory:
         class: AppBundle\Service\AnonymousUserFactory
         arguments: ["@doctrine.orm.entity_manager", "@security.password_encoder"]
+    app.authentication_refresher:
+        class: AppBundle\Service\AuthenticationRefresher
+        arguments: ["@doctrine.orm.entity_manager", "@security.token_storage"]
